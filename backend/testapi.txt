@@ -1,0 +1,15 @@
+# Test health check
+Invoke-WebRequest -Uri "http://localhost:3001/health" -Method GET
+
+# Test login
+$body = @{
+    email = "doctor@clinic.local"
+    password = "Doctor@123456"
+} | ConvertTo-Json
+
+$response = Invoke-WebRequest -Uri "http://localhost:3001/api/auth/login" `
+    -Method POST `
+    -ContentType "application/json" `
+    -Body $body
+
+$response.Content
