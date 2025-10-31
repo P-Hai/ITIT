@@ -7,7 +7,7 @@ import useAuthStore from '../store/authStore';
 function Login() {
   const navigate = useNavigate();
   const setAuth = useAuthStore((state) => state.setAuth);
-  
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -30,13 +30,13 @@ function Login() {
 
     try {
       const response = await authAPI.login(formData.email, formData.password);
-      
+
       // Save token to localStorage
       localStorage.setItem('access_token', response.session.access_token);
-      
+
       // Update Zustand store
       setAuth(response.user, response.session.access_token);
-      
+
       // Navigate based on role
       if (response.user.role === 'patient') {
         navigate('/medical-records');
@@ -46,7 +46,7 @@ function Login() {
     } catch (err) {
       console.error('Login error:', err);
       setError(
-        err.response?.data?.error || 
+        err.response?.data?.error ||
         'Login failed. Please check your credentials.'
       );
     } finally {
@@ -123,10 +123,10 @@ function Login() {
           <div className="mt-6 p-4 bg-gray-50 rounded-lg">
             <p className="text-xs font-semibold text-gray-700 mb-2">Demo Accounts:</p>
             <div className="text-xs text-gray-600 space-y-1">
-              <p>👨‍⚕️ Doctor: doctor@clinic.local / Doctor@123456</p>
-              <p>👩‍⚕️ Nurse: nurse@clinic.local / Nurse@123456</p>
-              <p>👤 Patient: patient@clinic.local / Patient@123456</p>
-              <p>🔐 Admin: admin@clinic.local / Admin@123456</p>
+              <p>Doctor: doctor@clinic.local / Doctor@123456</p>
+              <p>Nurse: nurse@clinic.local / Nurse@123456</p>
+              <p>Patient: patient@clinic.local / Patient@123456</p>
+              <p>Admin: admin@clinic.local / Admin@123456</p>
             </div>
           </div>
         </div>
